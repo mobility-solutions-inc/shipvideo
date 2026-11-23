@@ -70,6 +70,25 @@ That is the whole setup: the web app needs nothing but the OpenComputer API
 key. No object storage, no tokens to hand the agent — the video lives in the
 session workspace and the API signs a download for it.
 
+## Run it locally with Claude Code
+
+`.claude/skills/launch-video/` packages the same prompt and renderer as a
+Claude Code skill, so you can make videos on your own machine without
+OpenComputer. From the repo root (Node 22.18+), in Claude Code:
+
+```
+/launch-video https://example.com
+/launch-video a 25-second video for a fictional database startup
+```
+
+Claude writes the film to `launch-videos/<slug>/scene.html`, checks it with
+`scripts/check.ts` (errors, visible text, and frame screenshots it looks at),
+and renders `launch-videos/<slug>/<slug>.mp4` with `scripts/render.ts`. The
+scripts import the agent's `renderer.ts`, so both paths render identically; the
+first run installs Chromium and ffmpeg into `~/.shipvideo`. This is for your own
+interactive use; anything that serves other people (like `web/`) should call
+Claude with an API key.
+
 ## Gotchas
 
 - Turns carry a plain string (`POST /sessions/:id/turns {input}`), so the job

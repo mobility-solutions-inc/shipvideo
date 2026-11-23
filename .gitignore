@@ -5,3 +5,6 @@ node_modules/
 .opencomputer/
 opencomputer/agents/*/.opencomputer/
 .DS_Store
+
+# launch-video skill output
+launch-videos/
